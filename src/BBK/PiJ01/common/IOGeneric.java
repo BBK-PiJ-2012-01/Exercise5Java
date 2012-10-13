@@ -17,7 +17,7 @@ public class IOGeneric {
         try {
             String str = System.console().readLine();
             num = Integer.parseInt(str);
-        } catch(all) {
+        } catch(NumberFormatException e) {
             throw new BadInput();
         }
         return num;
@@ -28,17 +28,25 @@ public class IOGeneric {
         try {
             String str = System.console().readLine();
             num = Double.parseDouble(str);
-        } catch(all) {
+        } catch(NumberFormatException e) {
             throw new BadInput();
         }
         return num;
     }
     
+    public static String multiplyString(String input, int number_of_times) {
+        StringBuffer s = new StringBuffer();
+        for (int i=0; i<number_of_times; i++) {
+                s.append(input);
+        }
+        return s.toString();
+    }
 
     static void printResult(String result) {
-        println '-'.multiply( result.length() );
-        println result;
-        println '-'.multiply( result.length() );
+        s.
+        System.out.println '-'.multiply( result.length() );
+        System.out.println result;
+        System.out.println '-'.multiply( result.length() );
     }
     
     static int chooseFromList(def lst) {
