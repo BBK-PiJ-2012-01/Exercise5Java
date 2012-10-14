@@ -11,11 +11,11 @@ public class IOGeneric {
     /*
     *    Generic user input/output class used in many exercises.
     */
-    static String getString(){
+    public static String getString(){
         return System.console().readLine();
     }
     
-    static int getInteger() throws BadInput {
+    public static int getInteger() throws BadInput {
         int num;
         try {
             String str = getString();
@@ -23,10 +23,13 @@ public class IOGeneric {
         } catch(NumberFormatException e) {
             throw new BadInput();
         }
+        
         return num;
+        
+        
     }
     
-    static double getDouble() throws BadInput {
+    public static double getDouble() throws BadInput {
         double num;
         try {
             String str = getString();
@@ -45,7 +48,7 @@ public class IOGeneric {
         return s.toString();
     }
 
-    static void printResult(String result) {
+    public static void printResult(String result) {
         String header_footer = multiplyString("-", result.length());
         
         System.out.println(header_footer);
@@ -53,7 +56,7 @@ public class IOGeneric {
         System.out.println(header_footer);
     }
     
-    static int chooseFromList(ArrayList<String> lst) throws BadInput {
+    public static int chooseFromList(ArrayList<String> lst) throws BadInput {
         // Returns list index of chosen item
         String item;
         
