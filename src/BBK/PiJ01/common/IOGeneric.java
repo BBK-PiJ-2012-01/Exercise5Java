@@ -58,7 +58,6 @@ public class IOGeneric {
     
     public static int chooseFromList(ArrayList<String> lst) throws BadInput {
         // Returns list index of chosen item
-        String item;
         
         for (int i=0; i<lst.size(); i++) {
             System.out.format("[%d] %s", i+1, lst.get(i));
@@ -69,6 +68,12 @@ public class IOGeneric {
         if ((1 < choice_int) || (choice_int > lst.size()))
             throw new BadInput();
         
-        return choice_int;
+        return choice_int-1;
+    }
+    
+    public static int chooseFromList(String[] lst) throws BadInput {
+        ArrayList<String> array_list = new ArrayList<String>();
+        Collections.addAll(array_list, lst);
+        return chooseFromList(array_list);
     }
 }

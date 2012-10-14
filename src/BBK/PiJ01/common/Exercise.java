@@ -8,6 +8,9 @@ package BBK.PiJ01.common;
  *
  * @author Sam Wright <swrigh11@dcs.bbk.ac.uk>
  */
-public interface ExerciseInterface {
-    static String getDescription();
+public interface Exercise {
+    String getTitle();
+    String getDescription();
+    void run();
+    
 }
