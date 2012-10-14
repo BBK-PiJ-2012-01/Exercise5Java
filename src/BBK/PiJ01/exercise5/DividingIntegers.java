@@ -20,7 +20,7 @@ public class DividingIntegers implements Exercise{
                 "divide, and modulus.";
     }
     
-    public void test() {
-        
+    public void run() {
+        System.out.println("dividing some integers, yadadad...");
     }
 }

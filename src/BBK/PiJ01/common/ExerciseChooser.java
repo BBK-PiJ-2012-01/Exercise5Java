@@ -34,17 +34,21 @@ public class ExerciseChooser {
     }
     
     public void run() throws BadInput {
-        question = String.format("Choose which exercise to run [%d -> %d]%n", 0, exercises.size());
-        question = IOGeneric.multiplyString("-", question.length()) + "\n" + question;
+        question = String.format("Choose which exercise to run [%d -> %d]?", 0, exercises.size());
         Exercise chosen;
         
         while (true) {
-            System.out.println(question);
+            IOGeneric.printSpacers(" ");
+            IOGeneric.printSpacers("=");
+            IOGeneric.printTitle(question, "=");
+            IOGeneric.printSpacers("=");
             
             
             try {
+                
                 chosen = exercises.get( IOGeneric.chooseFromList(titles) );
-                IOGeneric.printResult(chosen.getDescription());
+                
+                IOGeneric.printResult(chosen.getDescription(), "=");
                 
                 if (chosen instanceof QuitExercise)
                     return;

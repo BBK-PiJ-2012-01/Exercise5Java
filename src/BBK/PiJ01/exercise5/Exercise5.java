@@ -17,6 +17,11 @@ public class Exercise5 {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws BadInput {
-        // TODO code application logic here
+        ArrayList<Exercise> exercises = new ArrayList<Exercise>();
+        
+        exercises.add(new DividingIntegers());
+        
+        ExerciseChooser ech = new ExerciseChooser(exercises);
+        ech.run();
     }
 }

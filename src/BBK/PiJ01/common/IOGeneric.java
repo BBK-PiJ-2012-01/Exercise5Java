@@ -5,6 +5,7 @@ import java.util.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.Math;
 
 /**
  *
@@ -59,9 +60,9 @@ public class IOGeneric {
     }
 
     public static void printResult(String result, String ...params) {
-        String spacer_char = getSingleDefault(params, "-");
+        String spacer = getSingleDefault(params, "-");
         
-        String header_footer = multiplyString(params[0], result.length());
+        String header_footer = multiplyString(spacer, result.length());
         
         System.out.println(header_footer);
         System.out.println(result);
@@ -76,7 +77,17 @@ public class IOGeneric {
     }
     
     public static void printTitle(String title, String ...params) {
+        String spacer = getSingleDefault(params, "-");
         
+        String spaces_either_side = multiplyString(spacer, Math.max(39-title.length()/2, 10));
+        
+        System.out.println(spaces_either_side + " " + title + " " + spaces_either_side);
+    }
+    
+    public static void printSpacers(String ...params) {
+        String spacer = getSingleDefault(params, "-");
+        
+        System.out.println( multiplyString(spacer, 80) );
     }
     
     public static int chooseFromList(List<String> lst) throws BadInput, IndexOutOfBoundsException {
