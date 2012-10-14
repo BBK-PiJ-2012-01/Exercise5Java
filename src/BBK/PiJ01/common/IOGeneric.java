@@ -56,7 +56,7 @@ public class IOGeneric {
         System.out.println(header_footer);
     }
     
-    public static int chooseFromList(ArrayList<String> lst) throws BadInput {
+    public static int chooseFromList(List<String> lst) throws BadInput {
         // Returns list index of chosen item
         
         for (int i=0; i<lst.size(); i++) {

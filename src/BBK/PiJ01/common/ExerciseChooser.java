@@ -5,7 +5,7 @@
 
 package BBK.PiJ01.common;
 
-import java.util.Arrays;
+import java.util.*;
 
 
 /**
@@ -13,40 +13,60 @@ import java.util.Arrays;
  * @author Sam Wright <swrigh11@dcs.bbk.ac.uk>
  */
 public class ExerciseChooser {
-    Exercise[] exercises;
-    String[] titles;
-    String[] descriptions;
+    private List<Exercise> exercises;
+    private List<String> titles = new ArrayList<String>();
+    private List<String> descriptions = new ArrayList<String>();
+    private String question;
     
     boolean running = false;
     
-    public ExerciseChooser(Exercise[] new_exercises) {
+    public ExerciseChooser(List<Exercise> new_exercises) throws BadInput {
+        if (new_exercises.size() < 1)
+            throw new BadInput("Must have at least one exercise to choose from!");
+        
         exercises = new_exercises;
-        titles = new String[exercises.length+1];
-        descriptions = new String[exercises.length];
+        exercises.add(0, new QuitExercise());
         
-        for (int i=0; i<exercises.length; i++) {
-            titles[i] = exercises[i].getTitle();
-            descriptions[i] = exercises[i].getDescription();
+        for (Exercise ex : exercises) {
+            titles.add(ex.getTitle());
+            descriptions.add(ex.getDescription());
         }
-        
-        titles[exercises.length] =  "Quit";
     }
     
     public void run() throws BadInput {
-        int i;
-        System.out.format("Choose which exercise to run [%d -> %d]", 1, exercises.length+1);
+        question = String.format("Choose which exercise to run [%d -> %d]%n", 0, exercises.size());
+        question = IOGeneric.multiplyString("-", question.length()) + "\n" + question;
+        Exercise chosen;
+        
         while (true) {
-            i = IOGeneric.chooseFromList(titles);
+            System.out.println(question);
             
-            if (i == exercises.length) {
-                System.out.println("Goodbye.");
-                break;
-            } else if (i>=0 && i<exercises.length) {
-                exercises[i].run();
-            } else {
+            
+            try {
+                chosen = exercises.get( IOGeneric.chooseFromList(titles) );
+                IOGeneric.printResult(chosen.getDescription());
+                
+                if (chosen instanceof QuitExercise)
+                    return;
+                else
+                    chosen.run();
+                
+            } catch(IndexOutOfBoundsException e) {
                 System.out.println("That's not an option!");
             }
-            
         }
     }
+}
+
+
+class QuitExercise implements Exercise {
+    public String getTitle() {
+        return "Quit";
+    }
+    
+    public String getDescription() {
+        return "Goodbye.";
+    }
+    
+    public void run() {}
 }
