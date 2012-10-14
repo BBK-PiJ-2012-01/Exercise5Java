@@ -1,8 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package BBK.PiJ01.common;
+
+
+import java.util.*;
 
 /**
  *
@@ -12,10 +11,14 @@ public class IOGeneric {
     /*
     *    Generic user input/output class used in many exercises.
     */
-    static int getInteger(){
+    static String getString(){
+        return System.console().readLine();
+    }
+    
+    static int getInteger() throws BadInput {
         int num;
         try {
-            String str = System.console().readLine();
+            String str = getString();
             num = Integer.parseInt(str);
         } catch(NumberFormatException e) {
             throw new BadInput();
@@ -23,10 +26,10 @@ public class IOGeneric {
         return num;
     }
     
-    static double getDouble(){
+    static double getDouble() throws BadInput {
         double num;
         try {
-            String str = System.console().readLine();
+            String str = getString();
             num = Double.parseDouble(str);
         } catch(NumberFormatException e) {
             throw new BadInput();
@@ -43,36 +46,26 @@ public class IOGeneric {
     }
 
     static void printResult(String result) {
-        s.
-        System.out.println '-'.multiply( result.length() );
-        System.out.println result;
-        System.out.println '-'.multiply( result.length() );
-    }
-    
-    static int chooseFromList(def lst) {
-        // Returns list index of chosen item
-        for (item in lst) {
-            println "["+item[0]+"]" + item[1..item.size()-1];
-        }
-        String[] first_letters = lst.collect{it[0].toLowerCase()}
-        String str = System.console().readLine().toLowerCase()[0]
+        String header_footer = multiplyString("-", result.length());
         
-        if (str in first_letters)
-            return first_letters.findIndexOf{it==str}
-        else
-            throw new BadInput()
-            
+        System.out.println(header_footer);
+        System.out.println(result);
+        System.out.println(header_footer);
     }
     
-    static def chooseFromMap(def map) {
-        int index = chooseFromList(map.keySet())
-        return map.values().toList()[index]
-    }
-    
-    static def getChar() {
-        String str = System.console().readLine()
-        if (str.length() != 1)
-            throw new BadInput(str)
-        return str[0]
+    static int chooseFromList(ArrayList<String> lst) throws BadInput {
+        // Returns list index of chosen item
+        String item;
+        
+        for (int i=0; i<lst.size(); i++) {
+            System.out.format("[%d] %s", i+1, lst.get(i));
+        }
+        
+        int choice_int = getInteger();
+        
+        if ((1 < choice_int) || (choice_int > lst.size()))
+            throw new BadInput();
+        
+        return choice_int;
     }
 }
