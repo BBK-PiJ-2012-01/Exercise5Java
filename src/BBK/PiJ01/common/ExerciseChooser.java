@@ -32,7 +32,7 @@ public class ExerciseChooser {
     }
     
     public void run() throws BadInput {
-        question = String.format("Choose which exercise to run [%d -> %d]?", 0, exercises.size());
+        question = String.format("Choose which exercise to run [%d -> %d]?", 0, exercises.size()-1);
         Exercise chosen;
         
         while (true) {

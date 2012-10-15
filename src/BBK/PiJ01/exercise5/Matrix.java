@@ -16,6 +16,7 @@ public class Matrix {
     protected int[][] array2d;      // arrays2d[y][x]
     protected int[][] lengths2d;    // lengths2d[y][x]
     protected int width, height;
+    MatrixChecker checker = new MatrixChecker();
     //private MatrixChecker checker = new MatrixChecker()
     
     class MatrixError extends Exception {
@@ -141,14 +142,28 @@ public class Matrix {
         }
         System.out.print(row_line.substring(0, row_line.length()-1));
     }         
-    /*
+    
+    void printSymmetry(Matrix m) {
+        IOGeneric.printResult("Symmetric? " + (isSymmetrical()? "Yes. " : "No. ")
+                + "TopTriangular? " + (m.isUpTriangular()? "Yes. " : "No. ")
+                + "DownTriangular? " + (m.isDownTriangular()? "Yes. " : "No. ")
+            , "-");
+    }
+    
     public boolean isSymmetrical() {
-        return checker.isSymmetrical(array2d)
+        return checker.isSymmetrical(this);
     }
     
     public boolean isTriangular() {
-        return checker.isTriangular(array2d)
-    }*/
+        return checker.isTriangular(this);
+    }
+    
+    public boolean isUpTriangular() {
+        return checker.isUpTriangular(this);
+    }
+    public boolean isDownTriangular() {
+        return checker.isDownTriangular(this);
+    }
     
     private int getMaxLength() {
         int max_length = 0;

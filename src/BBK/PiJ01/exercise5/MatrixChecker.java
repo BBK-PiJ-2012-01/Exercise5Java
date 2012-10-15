@@ -28,53 +28,45 @@ public class MatrixChecker {
     }
     
     public boolean isNonsquareSymmetrical(Matrix m) {
-        MatrixIterator top_right_itr = new MatrixIterator(m, TOPRIGHT);
-        MatrixIterator bottom_left_itr = new MatrixIterator(m, BOTTOMLEFT);
+        MatrixIterator tr_itr = new MatrixIterator(m, TOPRIGHT);
+        MatrixIterator bl_itr = new MatrixIterator(m, BOTTOMLEFT);
         
-        try{
-            while(top_right_itr.hasNext() && bottom_left_itr.hasNext()) {
-                if(top_right_itr.next() != bottom_left_itr.next()) {
-                    return false;
-                }
+        while(tr_itr.hasNext() && bl_itr.hasNext()) {
+            if(tr_itr.next() != bl_itr.next()) {
+                return false;
             }
-        } catch(MatrixIterator.EndException e) {
-            System.out.println("Iterators ended badly.  Blame the developer.");
         }
         
         return true;
-        
-        /*
-        int size = matrix.size()
-        if (matrix.collect{ it.size() } != [size]*size)
-            return false
-            
-        if (size == 1)
-            return true
-        
-        for (i in 0..size-2) {
-            if (!isSymmetrical( matrix[i][1+i..size-1] + matrix.collect{ it[i] }[1+i..size-1] as int[]))
-                return false
-        }
-        return true
-        */
     }
     
     public boolean isSymmetrical(Matrix m) {
         if (m.width != m.height)
             return false;
         return isNonsquareSymmetrical(m);
-        
-    /*
-    public boolean isTriangular(int[][] matrix) {
-        int width = matrix[0].size()
-        for (i in 1..matrix.size()-1) {
-            println "checking row i="+i+": " + matrix[i][0..[i, width].min()-1]
-            if (matrix[i][0..[i, width].min()-1].toSet() != [0].toSet())
-                return false
-        }
-        return true
+    }
     
-    */
+    public boolean isUpTriangular(Matrix m) {
+        return isTriangular(m, TOPRIGHT);
+    }
+    
+    public boolean isDownTriangular(Matrix m) {
+        return isTriangular(m, BOTTOMLEFT);
+    }
+    
+    public boolean isTriangular(Matrix m) {
+        return isTriangular(m, BOTTOMLEFT) || isTriangular(m, TOPRIGHT);
+    }
+        
+    public boolean isTriangular(Matrix m, int[][] config) {
+        MatrixIterator tr_itr = new MatrixIterator(m, config);
+        
+        while(tr_itr.hasNext()) {
+            if (tr_itr.next() != 0)
+                return false;
+        }
+            
+        return true;
     }
 }
 
@@ -87,7 +79,6 @@ class MatrixIterator {
     private int[] starting_point_vector;
     private int[] next_point = new int[2];
     
-    static class EndException extends Exception {}
     
     MatrixIterator(Matrix new_m, int[][] configs) {
         assert configs.length == 3;
@@ -118,12 +109,15 @@ class MatrixIterator {
         return isPointLegal(next_point);
     }
     
-    public int next() throws EndException {
+    public int next() {
+        int value = -1;
+                
         try {
-            return m.getElement(next_point[1], next_point[0]);
-        } catch(Matrix.MatrixError e) {
-            throw new EndException();
-        }
+            value = m.getElement(next_point[0], next_point[1]);
+            calculateNext();
+        } catch(Matrix.MatrixError e) {}
+        
+        return value;
     }
     
     private void calculateNext() {
@@ -145,10 +139,9 @@ class MatrixIterator {
     }
     
     private boolean isPointLegal(int[] p) {
-        if (0 <= p[0] || p[0] < m.width) {
-            if (0 <= p[1] || p[1] < m.height) {
-                return true;
-            }
+        if (0 <= p[0] && p[0] < m.width
+                && 0 <= p[1] && p[1] < m.height) {
+            return true;
         }
         return false;
     }

@@ -23,6 +23,7 @@ public class Exercise5 {
         exercises.add(new ArrayCopier());
         exercises.add(new CreatingMatrices());
         exercises.add(new MatrixOneLiner());
+        exercises.add(new SymmetryIsPretty());
                 
         ExerciseChooser ech = new ExerciseChooser(exercises);
         ech.run();
