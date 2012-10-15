@@ -20,6 +20,7 @@ public class Exercise5 {
         ArrayList<Exercise> exercises = new ArrayList<Exercise>();
         
         exercises.add(new DividingIntegers());
+        exercises.add(new ArrayCopier());
         
         ExerciseChooser ech = new ExerciseChooser(exercises);
         ech.run();

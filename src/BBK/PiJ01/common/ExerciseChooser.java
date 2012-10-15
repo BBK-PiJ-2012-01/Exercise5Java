@@ -15,7 +15,6 @@ import java.util.*;
 public class ExerciseChooser {
     private List<Exercise> exercises;
     private List<String> titles = new ArrayList<String>();
-    private List<String> descriptions = new ArrayList<String>();
     private String question;
     
     boolean running = false;
@@ -29,7 +28,6 @@ public class ExerciseChooser {
         
         for (Exercise ex : exercises) {
             titles.add(ex.getTitle());
-            descriptions.add(ex.getDescription());
         }
     }
     
@@ -47,8 +45,9 @@ public class ExerciseChooser {
             try {
                 
                 chosen = exercises.get( IOGeneric.chooseFromList(titles) );
-                
-                IOGeneric.printResult(chosen.getDescription(), "=");
+                IOGeneric.printSpacers(" ");
+                IOGeneric.printTitle(chosen.getTitle(), "-");
+                IOGeneric.printResult(chosen.getDescription(), "-");
                 
                 if (chosen instanceof QuitExercise)
                     return;

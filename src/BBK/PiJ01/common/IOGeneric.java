@@ -69,12 +69,46 @@ public class IOGeneric {
         System.out.println(header_footer);
     }
     
+    public static <T> String listToString(T[] lst, String ...params) {
+        StringBuffer sbuf = new StringBuffer();
+        String format = params==null ? "[,]" : params[0];
+        assert format.length() == 3;
+        
+        sbuf.append(format.charAt(0));
+        for (int i=0; i<lst.length; i++) {
+            sbuf.append(lst[i]);
+            sbuf.append(format.charAt(1));
+        }
+        sbuf.setCharAt(lst.length-1, format.charAt(2));
+        
+        return sbuf.toString();
+    }
+    
+    public static String intListToString(int[] lst, String ...params) {
+        String[] str_list = new String[lst.length];
+        for (int i=0; i<lst.length; i++) {
+            str_list[i] = String.valueOf(lst[i]);
+        }
+        return listToString(str_list);
+    }
+    
     private static <T> T getSingleDefault(T[] params, T default_value) {
         assert params.length == 1;
         if (params[0] == null)
             params[0] = default_value;
         return params[0];
     }
+    
+    /*
+    private static <T> T[] getDefaults(T[] params, T[] default_values) {
+        assert params.length == default_values.length;
+        for (int i=0; i<params.length; i++) {
+            if (params[i] == null);
+                params[i] = default_values[i];
+        }
+        return params;
+    }
+    * */
     
     public static void printTitle(String title, String ...params) {
         String spacer = getSingleDefault(params, "-");
@@ -99,8 +133,8 @@ public class IOGeneric {
         
         int choice_int = getInteger();
         
-        if ((1 < choice_int) || (choice_int > lst.size()))
-            throw new IndexOutOfBoundsException();
+        //if ((1 < choice_int) || (choice_int > lst.size()))
+        //    throw new IndexOutOfBoundsException();
         
         return choice_int;
     }
