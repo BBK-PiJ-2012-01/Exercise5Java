@@ -19,9 +19,11 @@ public class Matrix {
     //private MatrixChecker checker = new MatrixChecker()
     
     class MatrixError extends Exception {
-    MatrixError(String str) {
-        System.out.println("======= Matrix logical error: \"" + str + "\" =======");
-        }
+        MatrixError() {}
+        
+        MatrixError(String str) {
+            System.out.println("======= Matrix logical error: \"" + str + "\" =======");
+            }
     }
     
     public Matrix(int new_width, int new_height) throws MatrixError {
@@ -53,6 +55,14 @@ public class Matrix {
             lengths2d[j][i] = String.valueOf(value).length();
         
         } catch(IndexOutOfBoundsException e) {}
+    }
+    
+    public int getElement(int i, int j) throws MatrixError {
+        try {
+            return array2d[j][i];
+        } catch(IndexOutOfBoundsException e) {
+            throw new MatrixError();
+        } 
     }
     
     public void setRow(int j, String row_str) {
