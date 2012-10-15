@@ -53,6 +53,7 @@ public class IOGeneric {
     
     public static String multiplyString(String input, int number_of_times) {
         StringBuffer s = new StringBuffer();
+        
         for (int i=0; i<number_of_times; i++) {
                 s.append(input);
         }
@@ -62,7 +63,14 @@ public class IOGeneric {
     public static void printResult(String result, String ...params) {
         String spacer = getSingleDefault(params, "-");
         
-        String header_footer = multiplyString(spacer, result.length());
+        int longest_line_length = 1;
+        
+        String[] lines = result.split("\n");
+        for (int l=0; l<lines.length; l++) {
+            longest_line_length = Math.max(longest_line_length, lines[l].length());
+        }
+        
+        String header_footer = multiplyString(spacer, longest_line_length);
         
         System.out.println(header_footer);
         System.out.println(result);
@@ -71,7 +79,8 @@ public class IOGeneric {
     
     public static <T> String listToString(T[] lst, String ...params) {
         StringBuffer sbuf = new StringBuffer();
-        String format = params==null ? "[,]" : params[0];
+        //String format = params==null ? "[,]" : params[0];
+        String format = getSingleDefault(params, "[,]");
         assert format.length() == 3;
         
         sbuf.append(format.charAt(0));
@@ -79,7 +88,7 @@ public class IOGeneric {
             sbuf.append(lst[i]);
             sbuf.append(format.charAt(1));
         }
-        sbuf.setCharAt(lst.length-1, format.charAt(2));
+        sbuf.setCharAt(sbuf.length()-1, format.charAt(2));
         
         return sbuf.toString();
     }
@@ -93,10 +102,11 @@ public class IOGeneric {
     }
     
     private static <T> T getSingleDefault(T[] params, T default_value) {
-        assert params.length == 1;
-        if (params[0] == null)
-            params[0] = default_value;
-        return params[0];
+        //assert params.length == 1;
+        T value = default_value;
+        if (params != null && params.length > 0)
+            value = params[0];
+        return value;
     }
     
     /*

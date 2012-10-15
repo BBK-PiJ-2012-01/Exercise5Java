@@ -21,7 +21,9 @@ public class Exercise5 {
         
         exercises.add(new DividingIntegers());
         exercises.add(new ArrayCopier());
-        
+        exercises.add(new CreatingMatrices());
+        exercises.add(new MatrixOneLiner());
+                
         ExerciseChooser ech = new ExerciseChooser(exercises);
         ech.run();
     }

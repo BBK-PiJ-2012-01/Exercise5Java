@@ -45,18 +45,19 @@ public class ExerciseChooser {
             try {
                 
                 chosen = exercises.get( IOGeneric.chooseFromList(titles) );
-                IOGeneric.printSpacers(" ");
-                IOGeneric.printTitle(chosen.getTitle(), "-");
-                IOGeneric.printResult(chosen.getDescription(), "-");
-                
-                if (chosen instanceof QuitExercise)
-                    return;
-                else
-                    chosen.run();
-                
             } catch(IndexOutOfBoundsException e) {
                 System.out.println("That's not an option!");
+                continue;
             }
+            
+            IOGeneric.printSpacers(" ");
+            IOGeneric.printTitle(chosen.getTitle(), "=");
+            IOGeneric.printResult(chosen.getDescription(), "-");
+
+            if (chosen instanceof QuitExercise)
+                return;
+            else
+                chosen.run();
         }
     }
 }

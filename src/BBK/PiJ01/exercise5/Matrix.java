@@ -13,15 +13,24 @@ import BBK.PiJ01.common.IOGeneric;
  * @author Sam Wright <swrigh11@dcs.bbk.ac.uk>
  */
 public class Matrix {
-    private int[][] array2d;      // arrays2d[y][x]
-    private int[][] lengths2d;    // lengths2d[y][x]
-    private int width, height;
+    protected int[][] array2d;      // arrays2d[y][x]
+    protected int[][] lengths2d;    // lengths2d[y][x]
+    protected int width, height;
     //private MatrixChecker checker = new MatrixChecker()
+    
+    class MatrixError extends Exception {
+    MatrixError(String str) {
+        System.out.println("======= Matrix logical error: \"" + str + "\" =======");
+        }
+    }
     
     public Matrix(int new_width, int new_height) throws MatrixError {
         width = new_width;
         height = new_height;
         verifySize();
+        
+        array2d = new int[height][width];
+        lengths2d = new int[height][width];
         
         for (int i=0; i<width; i++) {
             for (int j=0; j<height; j++) {
@@ -53,8 +62,18 @@ public class Matrix {
             return;
             
         array2d[j] = row_array;
+        updateLengths(j);
+    }
+    
+    protected void updateLengths(int j) {
         for (int i=0; i<width; i++) {
             lengths2d[j][i] = String.valueOf(array2d[j][i]).length();
+        }
+    }
+    
+    protected void updateLengths() {
+        for (int j=0; j<height; j++) {
+            updateLengths(j);
         }
     }
     
@@ -102,8 +121,7 @@ public class Matrix {
             for (int i=0; i<width; i++) {
                 right_spaces = ( cell_width - lengths2d[j][i] ) / 2;
                 left_spaces = cell_width - lengths2d[j][i] - right_spaces;
-                System.out.print(
-                                    IOGeneric.multiplyString(" ", left_spaces)
+                System.out.print(   IOGeneric.multiplyString(" ", left_spaces)
                                     + array2d[j][i] 
                                     + IOGeneric.multiplyString(" ", right_spaces)
                                     + "|"
@@ -111,7 +129,7 @@ public class Matrix {
             }
             System.out.print("\n");
         }
-        System.out.print(row_line.substring(0, row_line.length()-2));
+        System.out.print(row_line.substring(0, row_line.length()-1));
     }         
     /*
     public boolean isSymmetrical() {
@@ -126,7 +144,7 @@ public class Matrix {
         int max_length = 0;
         for (int j=0; j<height; j++) {
             for (int i=0; i<width; i++) {
-                max_length = Math.max(max_length, array2d[j][i]);
+                max_length = Math.max(max_length, lengths2d[j][i]);
             }
         }
         return max_length;
@@ -135,8 +153,3 @@ public class Matrix {
 }
 
 
-class MatrixError extends Exception {
-    MatrixError(String str) {
-        System.out.println("======= Matrix logical error: \"" + str + "\" =======");
-    }
-}
