@@ -18,6 +18,6 @@ public class BadInput extends Exception {
     }
     
     BadInput() {
-        System.out.println("Bad input given!");
+        //System.out.println("Bad input given!");
     }
 }

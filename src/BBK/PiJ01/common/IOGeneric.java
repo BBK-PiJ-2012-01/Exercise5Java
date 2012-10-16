@@ -60,8 +60,8 @@ public class IOGeneric {
         return s.toString();
     }
 
-    public static void printResult(String result, String ...params) {
-        String spacer = getSingleDefault(params, "-");
+    public static void printResult(String result, String ...spacer_str) {
+        String spacer = getSingleDefault(spacer_str, "-");
         
         int longest_line_length = 1;
         
@@ -77,10 +77,10 @@ public class IOGeneric {
         System.out.println(header_footer);
     }
     
-    public static <T> String listToString(T[] lst, String ...params) {
+    public static <T> String listToString(T[] lst, String ...format_str) {
         StringBuffer sbuf = new StringBuffer();
         //String format = params==null ? "[,]" : params[0];
-        String format = getSingleDefault(params, "[,]");
+        String format = getSingleDefault(format_str, "[,]");
         assert format.length() == 3;
         
         sbuf.append(format.charAt(0));
@@ -120,16 +120,16 @@ public class IOGeneric {
     }
     * */
     
-    public static void printTitle(String title, String ...params) {
-        String spacer = getSingleDefault(params, "-");
+    public static void printTitle(String title, String ...spacer_str) {
+        String spacer = getSingleDefault(spacer_str, "-");
         
         String spaces_either_side = multiplyString(spacer, Math.max(39-title.length()/2, 10));
         
         System.out.println(spaces_either_side + " " + title + " " + spaces_either_side);
     }
     
-    public static void printSpacers(String ...params) {
-        String spacer = getSingleDefault(params, "-");
+    public static void printSpacers(String ...spacer_str) {
+        String spacer = getSingleDefault(spacer_str, "-");
         
         System.out.println( multiplyString(spacer, 80) );
     }
@@ -141,10 +141,8 @@ public class IOGeneric {
             System.out.format("[%d] %s\n", i, lst.get(i));
         }
         
+        System.out.print("\nYour choice: ");
         int choice_int = getInteger();
-        
-        //if ((1 < choice_int) || (choice_int > lst.size()))
-        //    throw new IndexOutOfBoundsException();
         
         return choice_int;
     }

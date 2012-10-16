@@ -24,6 +24,7 @@ public class Exercise5 {
         exercises.add(new CreatingMatrices());
         exercises.add(new MatrixOneLiner());
         exercises.add(new SymmetryIsPretty());
+        exercises.add(new AntiAircraftGame());
                 
         ExerciseChooser ech = new ExerciseChooser(exercises);
         ech.run();

@@ -52,5 +52,17 @@ public class SymmetryIsPretty implements Exercise {
         m.setRow(2, "1,3,1");
         m.prettyPrint();
         m.printSymmetry(m);
+        
+        m.setRow(0, "1,0,0");
+        m.setRow(1, "2,4,0");
+        m.setRow(2, "1,3,1");
+        m.prettyPrint();
+        m.printSymmetry(m);
+        
+        m.setRow(0, "1,2,1");
+        m.setRow(1, "0,4,3");
+        m.setRow(2, "0,0,1");
+        m.prettyPrint();
+        m.printSymmetry(m);
     }
 }
