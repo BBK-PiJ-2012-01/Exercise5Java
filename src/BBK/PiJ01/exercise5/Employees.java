@@ -62,6 +62,14 @@ public class Employees {
     public Iterator getIterator() {
         return new Iterator(this);
     }
+    
+    public boolean isNewID(int id) {
+        for(Iterator itr = getIterator(); itr.hasNext();) {
+            if (itr.next().getID() == id)
+                return false;
+        }
+        return true;
+    }
 }
 
 

@@ -16,6 +16,7 @@ import BBK.PiJ01.common.IOGeneric;
 public class DataEntryGame implements Exercise {
     private Employees emp_data = new Employees();
     public static class EndDataEntry extends Exception {}
+    public static class DuplicateDataEntry extends Exception {}
     
     public String getTitle() {
         return "Data entry game!";
@@ -49,9 +50,9 @@ public class DataEntryGame implements Exercise {
             tuple = itr.next();
             
             if (tuple.getName().toUpperCase().startsWith("S"))
-                sbuf_begin_with_s.append(String.format("\n\t%d|\t%s", tuple.getID(), tuple.getName()));
+                sbuf_begin_with_s.append(String.format("\t%d|\t%s\n", tuple.getID(), tuple.getName()));
             if (tuple.getID() % 2 == 0)
-                sbuf_even_id.append(String.format("\n\t%d|\t%s", tuple.getID(), tuple.getName()));
+                sbuf_even_id.append(String.format("\t%d|\t%s\n", tuple.getID(), tuple.getName()));
         }
         
         IOGeneric.printTitle("Employees who's name begins with 'S'", "-");
@@ -59,6 +60,8 @@ public class DataEntryGame implements Exercise {
         
         IOGeneric.printTitle("Employees with even IDs:", "-");
         System.out.println(sbuf_even_id);
+        
+        System.out.println("You win!  Wasn't that fun?");
     }
     
     private void addEmployee() throws EndDataEntry {
@@ -73,10 +76,15 @@ public class DataEntryGame implements Exercise {
             if (id == 0)
                 throw new EndDataEntry();
             
+            if (!emp_data.isNewID(id))
+                throw new DuplicateDataEntry();
+            
             emp_data.add(id, name);
             System.out.print("\n");
         } catch(BadInput e) {
             System.out.println("Data enetered incorrectly.  Try again!");
+        } catch(DuplicateDataEntry e) {
+            System.out.println("That ID already exists.  Try again!\n");
         }
     }
 

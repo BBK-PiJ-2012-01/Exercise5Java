@@ -31,7 +31,7 @@ public class ExerciseChooser {
         }
     }
     
-    public void run() throws BadInput {
+    public void run() {
         question = String.format("Choose which exercise to run [%d -> %d]?", 0, exercises.size()-1);
         Exercise chosen;
         
@@ -47,6 +47,10 @@ public class ExerciseChooser {
                 chosen = exercises.get( IOGeneric.chooseFromList(titles) );
             } catch(IndexOutOfBoundsException e) {
                 System.out.println("That's not an option!");
+                continue;
+            } catch(BadInput e) {
+                System.out.format("I don't understand.  "
+                        + "Type a number between %d and %d.\n", 0, exercises.size()-1);
                 continue;
             }
             
