@@ -36,8 +36,6 @@ public class IOGeneric {
         }
         
         return num;
-        
-        
     }
     
     public static double getDouble() throws BadInput {

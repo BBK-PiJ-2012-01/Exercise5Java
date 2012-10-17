@@ -16,10 +16,9 @@ public class Matrix {
     protected int[][] array2d;      // arrays2d[y][x]
     protected int[][] lengths2d;    // lengths2d[y][x]
     protected int width, height;
-    MatrixChecker checker = new MatrixChecker();
-    //private MatrixChecker checker = new MatrixChecker()
+    protected MatrixChecker checker = new MatrixChecker();
     
-    class MatrixError extends Exception {
+    static class MatrixError extends Exception {
         MatrixError() {}
         
         MatrixError(String str) {
@@ -43,7 +42,7 @@ public class Matrix {
         }
     }
     
-    private void verifySize() throws MatrixError {
+    protected void verifySize() throws MatrixError {
         if (width < 1) 
             throw new MatrixError("Width of matrix must be greater than 1");
         if (height < 1) 
@@ -143,7 +142,7 @@ public class Matrix {
         System.out.print(row_line.substring(0, row_line.length()-1));
     }         
     
-    void printSymmetry(Matrix m) {
+    public void printSymmetry(Matrix m) {
         IOGeneric.printResult("Symmetric? " + (isSymmetrical()? "Yes. " : "No. ")
                 + "TopTriangular? " + (m.isUpTriangular()? "Yes. " : "No. ")
                 + "DownTriangular? " + (m.isDownTriangular()? "Yes. " : "No. ")

@@ -15,9 +15,7 @@ import BBK.PiJ01.common.IOGeneric;
  */
 public class DataEntryGame implements Exercise {
     private Employees emp_data = new Employees();
-    
-    
-    class EndDataEntry extends Exception {}
+    public static class EndDataEntry extends Exception {}
     
     public String getTitle() {
         return "Data entry game!";

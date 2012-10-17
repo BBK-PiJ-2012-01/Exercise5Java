@@ -79,7 +79,6 @@ class MatrixIterator {
     private int[] starting_point_vector;
     private int[] next_point = new int[2];
     
-    
     MatrixIterator(Matrix new_m, int[][] configs) {
         assert configs.length == 3;
         setConfigs(new_m, configs[0], configs[1], configs[2]);

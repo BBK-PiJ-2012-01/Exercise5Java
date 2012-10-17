@@ -12,20 +12,10 @@ import BBK.PiJ01.common.IOGeneric;
  * @author Sam Wright <swrigh11@dcs.bbk.ac.uk>
  */
 public class AntiAircraftGun {
-    //private int[][][] grid = new int[10][10][10];
     private int[] pos = new int[3];
-    class BadCoordinate extends Exception {}
+    public static class BadCoordinate extends Exception {}
     
     public AntiAircraftGun() {
-        /*
-        for(int k=0; k<10; k++) {
-            for (int j=0; j<10; j++) {
-                for (int i=0; i<10; i++){
-                    grid[k][j][i] = 0;
-                }
-            }
-        }
-        */
         init();
     }
     

@@ -14,12 +14,12 @@ import BBK.PiJ01.common.IOGeneric;
  * @author Sam Wright <swrigh11@dcs.bbk.ac.uk>
  */
 public class AntiAircraftGame implements Exercise {
-    AntiAircraftGun gun = new AntiAircraftGun();
-    int[] target_coords = new int[3];
-    boolean playing;
-    Result r;
+    private AntiAircraftGun gun = new AntiAircraftGun();
+    private int[] target_coords = new int[3];
+    private boolean playing;
     
-    class GameEnd extends Exception {}
+    
+    public static class GameEnd extends Exception {}
     
     public String getTitle() {
         return "Anti-Aircraft Game";
@@ -87,7 +87,7 @@ public class AntiAircraftGame implements Exercise {
             target_coords[d] = IOGeneric.getInteger();
         }
         
-        r = gun.fire(target_coords[0], target_coords[1], target_coords[2]);
+        Result r = gun.fire(target_coords[0], target_coords[1], target_coords[2]);
         System.out.println(r.getMsg());
         if (r == Result.HIT)
             throw new GameEnd();

@@ -17,7 +17,9 @@ public enum Result {
     FAIL_LOW ("The target is lower!", new int[]{0,-1,0}, new int[]{1,0,1}),
     FAIL_SHORT ("The target is closer!", new int[]{0,0,-1}, new int[]{1,1,0}),
     FAIL_LONG ("The target is farther!", new int[]{0,0,1}, new int[]{1,1,0}),
-    OUT_OF_RANGE ("That shot is way out of range.  Try harder!", new int[]{0,0,0}, new int[]{10,10,10});
+    
+    OUT_OF_RANGE ("That shot is way out of range.  Try harder!", 
+                                        new int[]{0,0,0}, new int[]{10,10,10});
     
     private int[] coords;
     private int[] margin;

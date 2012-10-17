@@ -26,8 +26,7 @@ public class Exercise5 {
         exercises.add(new SymmetryIsPretty());
         exercises.add(new AntiAircraftGame());
         exercises.add(new DataEntryGame());
-        
-                
+            
         ExerciseChooser ech = new ExerciseChooser(exercises);
         ech.run();
     }
